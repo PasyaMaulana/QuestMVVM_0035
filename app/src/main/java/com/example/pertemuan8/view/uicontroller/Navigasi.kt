@@ -27,7 +27,7 @@ enum class Navigasi {
 fun SiswaApp(
     //edit 1 : parameter  viewModel
     modifier: Modifier,
-    viewModel: SiswaViewModel = viewModel (),
+    viewModel: SiswaViewModel = viewModel(),
     navController : NavHostController = rememberNavController()
 ){
     Scaffold { isiRuang->
@@ -50,6 +50,18 @@ fun SiswaApp(
                     }
                 )
             }
+            composable(route = Navigasi.Detail.name){
+                TampilSiswa(
+                    //edit 5 : parameter statusUiSiswa
+                    statusUiSiswa = uiState.value,
+                    onBackButtonClicked = { cancelAndBackToFormulir(navController) }
+                )
+            }
         }
     }
+}
+private fun cancelAndBackToFormulir(
+    navController: NavHostController
+) {
+    navController.popBackStack(Navigasi.Formulir.name, inclusive = false)
 }
